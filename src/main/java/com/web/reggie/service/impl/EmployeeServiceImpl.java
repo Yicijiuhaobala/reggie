@@ -6,6 +6,9 @@ import com.web.reggie.mapper.EmployeeMapper;
 import com.web.reggie.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author ZAH
+ */
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper,Employee> implements EmployeeService{
 }
