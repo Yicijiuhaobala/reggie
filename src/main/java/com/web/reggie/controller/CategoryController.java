@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Description 菜品分类
  * @Author ZhangAohui
@@ -79,5 +82,16 @@ public class CategoryController {
         log.info("修改分类信息：{}", category);
         categoryService.updateById(category);
         return R.success("修改分类信息成功");
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("获取菜品分类或者套餐分类的list")
+    public R<List<Category>> getCategoryList(Category category){
+        log.info("获取菜品分类或者套餐分类的list");
+        LambdaQueryWrapper<Category> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(category.getType()!=null, Category::getType, category.getType());
+        lambdaQueryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
+        List<Category> list = categoryService.list(lambdaQueryWrapper);
+        return R.success(list);
     }
 }
