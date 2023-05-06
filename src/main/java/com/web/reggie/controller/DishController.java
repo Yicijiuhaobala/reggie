@@ -100,11 +100,30 @@ public class DishController {
      * @param dishDto
      * @return
      */
-    @PutMapping("")
+    @PutMapping("/")
     @ApiOperation(value = "更新菜品信息和口味信息")
     public R<String> updateDish(@RequestBody DishDto dishDto){
         log.info("修改菜品");
         dishService.updateWithFlavor(dishDto);
-        return R.success("修改菜品信息");
+        return R.success("修改菜品信息成功");
     }
+
+    /**
+     * 根据菜品id查询对应的菜数据
+     * @param dish
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation(value = "根据菜品id查询对应的菜数据")
+    public R<List<Dish>> getList( Dish dish){
+        LambdaQueryWrapper<Dish> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+//        根据CategoryId查询对应菜信息
+        lambdaQueryWrapper.eq(dish.getCategoryId()!=null, Dish::getCategoryId, dish.getCategoryId());
+//        查询菜品为起售状态
+        lambdaQueryWrapper.eq(Dish::getStatus,1);
+        lambdaQueryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        List<Dish> dishList = dishService.list(lambdaQueryWrapper);
+        return R.success(dishList);
+    }
+
 }

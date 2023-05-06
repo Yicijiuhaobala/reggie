@@ -14,6 +14,29 @@ spring:
     multipart:
       max-file-size: 10MB        # 设置单个文件最大大小为10MB
       max-request-size: 100MB    # 设置多个文件大小为100MB
+#  #邮箱验证码配置
+#  mail:
+#    #smtp服务主机  qq邮箱则为smtp.qq.com;163邮箱是smtp.163.com
+#    host: smtp.163.com
+#    #服务协议
+#    protocol: smtp
+#    port: 465
+#    # 编码集
+#    default-encoding: UTF-8
+#    #发送邮件的账户
+#    username: 276181@whut.edu.cn
+#    #授权码
+#    password: fUapm2zRK8AqAUqQ
+#    test-connection: true
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+
+
 mybatis-plus:
   configuration:
     #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
