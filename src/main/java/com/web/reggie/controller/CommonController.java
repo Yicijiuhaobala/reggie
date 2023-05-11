@@ -5,12 +5,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,8 @@ import java.util.UUID;
 @RequestMapping("/common")
 @Api(tags = "文件上传下载API接口")
 public class CommonController {
+    @Resource
+    private RedisTemplate redisTemplate;
     /**
      * 文件上传
      * @param file
@@ -88,5 +92,11 @@ public class CommonController {
 //            return R.error("文件下载出错");
         }
 //        return R.success(name + "文件下载成功");
+    }
+
+    @GetMapping("/saveStu")
+    public void setStudent(){
+        redisTemplate.opsForValue().set("st2","6663");
+        System.out.println(redisTemplate.opsForValue().get("name"));
     }
 }

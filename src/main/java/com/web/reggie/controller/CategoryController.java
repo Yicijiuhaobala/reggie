@@ -87,6 +87,7 @@ public class CategoryController {
     @GetMapping("/list")
     @ApiOperation("获取菜品分类或者套餐分类的list")
     public R<List<Category>> getCategoryList(Category category){
+
         log.info("获取菜品分类或者套餐分类的list");
         LambdaQueryWrapper<Category> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(category.getType()!=null, Category::getType, category.getType());
